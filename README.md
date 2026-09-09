@@ -235,6 +235,29 @@ With a database export (the default), the dump is written to a private temp dire
 
 ## Troubleshooting
 
+### Updates leave an older command installed
+
+Older releases omitted the `#ddev-generated` marker from the global commands.
+DDEV treats those files as user-managed and reports `NOT overwriting` during
+installation, so an upgrade can leave the old behavior in place.
+
+Back up any local command changes, then add `#ddev-generated` on its own line
+below the shebang in both `~/.ddev/commands/host/worktree` and
+`~/.ddev/commands/host/worktree-remove`. Reinstall the add-on from a DDEV project
+directory. The commands now ship with this marker so subsequent upgrades can
+replace them normally.
+
+### Many untracked files under `.ddev/` in an older worktree
+
+Older commands created `.ddev/.gitignore` containing only `config.worktree.yaml`.
+That prevents DDEV from generating its normal ignore rules. If the file contains
+only that entry, replace it with `#ddev-generated` and run `ddev start`. Preserve
+any custom rules if you have edited the file yourself.
+
+For an older `config.worktree.yaml`, rename it to `config.worktree.local.yaml`
+before starting DDEV. The current command uses this name, which DDEV ignores
+automatically. Keep only one of these config files.
+
 ### `mktemp: mkstemp failed on /tmp/ddev-worktree-db-XXXXXX.sql.gz: File exists`
 
 Affects **v1.1.0 and earlier on macOS**. Those versions built the dump path with the `X` placeholders mid-string (`ddev-worktree-db-XXXXXX.sql.gz`). BSD `mktemp` only substitutes a *trailing* run of `X`s, so the name was used literally — the same fixed path on every run. There was also no cleanup trap, so any failure between export and import left the file behind, and every later run then failed on it.
