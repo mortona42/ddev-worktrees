@@ -1,4 +1,5 @@
 #!/bin/bash
+#ddev-generated
 
 ## Description: Clone a DDEV project into a git worktree (or rsync copy) with its database
 ## Usage: worktree <branch-or-name> [flags]

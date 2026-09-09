@@ -1,4 +1,5 @@
 #!/bin/bash
+#ddev-generated
 
 ## Description: Remove a DDEV worktree clone created by 'ddev worktree'
 ## Usage: worktree-remove <name> [flags]
