@@ -16,7 +16,7 @@ Or install from a local clone:
 ddev add-on install /path/to/ddev-worktree
 ```
 
-Once installed, the `ddev worktree` and `ddev worktree-remove` commands are available in every DDEV project.
+Once installed, the `ddev worktree` and `ddev worktree-remove` commands are available in DDEV.
 
 ## Quick Start
 
