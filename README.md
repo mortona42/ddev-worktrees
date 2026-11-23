@@ -1,5 +1,14 @@
 # ddev-worktree
 
+## mortona42 customizations
+
+This fork ([mortona42/ddev-worktrees](https://github.com/mortona42/ddev-worktrees)) tracks [elabx/ddev-worktrees](https://github.com/elabx/ddev-worktrees) and adds the following changes on top of it:
+
+- **Project-scoped install** (`Install commands in project only`): `install.yaml` installs the `worktree` and `worktree-remove` commands as `project_files` instead of `global_files`, so they live in each project's `.ddev/commands/host/` rather than `~/.ddev/commands/host/`. DDEV removes them when the add-on is uninstalled, so the `removal_actions` are gone. Despite the description below, this fork is a per-project add-on, not a global one.
+- **Composer/npm run inside DDEV** (`Run composer/npm inside ddev`): the example `post_create` commands in this README use `ddev composer install` and `ddev npm install`, so they run in the web container and don't need PHP or Node on the host.
+
+The underscore fix from [elabx/ddev-worktrees#6](https://github.com/elabx/ddev-worktrees/pull/6) has been replaced by [elabx/ddev-worktrees#10](https://github.com/elabx/ddev-worktrees/pull/10), which this fork includes until it is merged upstream.
+
 A global DDEV add-on that clones an existing DDEV project (files + database) into a new directory. If the project is a git repo, it uses `git worktree` to create a linked worktree; otherwise it copies files with rsync.
 
 The new directory gets its own DDEV project name via `config.worktree.local.yaml`, so both instances can run simultaneously without collision.
